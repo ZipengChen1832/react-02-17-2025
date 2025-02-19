@@ -1,0 +1,31 @@
+.title {
+  color: red;
+}
+
+.box-model {
+  border: 5px solid black;
+  width: 50px;
+  padding: 10px;
+  margin: 10px;
+}
+
+@media (max-width: 1024px) {
+  .title {
+    color: green;
+  }
+}
+
+@media (max-width: 768px) {
+  .title {
+    color: blue;
+  }
+}
+
+.video-rec {
+}
+
+.video-rec__thumbnail-container {
+}
+
+.video-rec__thumbnail {
+}
