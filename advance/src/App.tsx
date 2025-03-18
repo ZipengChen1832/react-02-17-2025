@@ -1,3 +1,4 @@
+import AddingInteractivity from "./AddingInteractivity";
 import "./App.css";
 import ClassComponentsDemo from "./class";
 // when importing from a folder, it will look for the index file
@@ -8,7 +9,8 @@ function App() {
   return (
     <div>
       {/* <DescribingTheUI /> */}
-      <ClassComponentsDemo />
+      {/* <ClassComponentsDemo /> */}
+      <AddingInteractivity />
     </div>
   );
 }
