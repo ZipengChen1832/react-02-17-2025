@@ -22,12 +22,12 @@ export default function Rendering() {
 // another syntax for functional component with React.FC
 const ChildCounter: React.FC<{ isDark: boolean }> = () => {
   const [count, setCount] = useState(0);
-  const handleClick = ()=> {
+  const handleClick = () => {
     // setState triggers re-render
     setCount(count + 1);
     // console.log(count);
   };
-  
+
   console.log("rendering child counter");
 
   return (
@@ -39,6 +39,21 @@ const ChildCounter: React.FC<{ isDark: boolean }> = () => {
     </div>
   );
 };
+
+// <div>
+//   <div key={1}>1</div>
+//   <div key={2}>2</div>
+//   <div key={3}>3</div>
+// </div>;
+
+// <div>
+//   <div key={1}>0</div>
+//   <div key={2}>1</div>
+//   <div key={3}>2</div>
+//   <div key={4}>3</div>
+// </div>;
+
+
 
 // ChildCounter()
 //     handleClick() //count 0
