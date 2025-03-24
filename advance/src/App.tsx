@@ -6,7 +6,7 @@ import ClassComponentsDemo from "./class";
 import DescribingTheUI from "./DescribingTheUI";
 import LearnUseEffect from "./LearnUseEffect";
 import ManagingState from "./ManagingState";
-
+import PracticeProblems from "./PracticeProblems";
 
 function App() {
   return (
@@ -15,7 +15,8 @@ function App() {
       {/* <ClassComponentsDemo /> */}
       {/* <AddingInteractivity /> */}
       {/* <ManagingState /> */}
-      <LearnUseEffect />
+      {/* <LearnUseEffect /> */}
+      <PracticeProblems />
     </div>
   );
 }

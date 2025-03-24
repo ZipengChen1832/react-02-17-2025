@@ -1,0 +1,23 @@
+.select-form {
+  width: 300px;
+  border: 1px solid white;
+  text-align: left;
+  padding: 10px;
+}
+
+.selected-items {
+  background-color: lightgoldenrodyellow;
+  padding: 5px;
+  color: black;
+  margin-bottom: 10px;
+}
+
+.checkboxes-list {
+  margin-bottom: 10px;
+}
+
+.clear-btn {
+  width: 100%;
+  color: black;
+  background-color: lightgoldenrodyellow;
+}
