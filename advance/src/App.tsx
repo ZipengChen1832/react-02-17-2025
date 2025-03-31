@@ -7,6 +7,7 @@ import DescribingTheUI from "./DescribingTheUI";
 import LearnUseEffect from "./LearnUseEffect";
 import ManagingState from "./ManagingState";
 import PracticeProblems from "./PracticeProblems";
+import ReduxApp from "./ReduxApp";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
       {/* <AddingInteractivity /> */}
       {/* <ManagingState /> */}
       {/* <LearnUseEffect /> */}
-      <PracticeProblems />
+      {/* <PracticeProblems /> */}
+      <ReduxApp />
     </div>
   );
 }
