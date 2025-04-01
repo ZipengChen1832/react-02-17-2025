@@ -1,23 +1,19 @@
-import { useDispatch, useSelector } from "react-redux";
-import { IRootState } from "../reducers";
 import {
-  addTodo,
-  removeTodo,
   Todo,
-  toggleTodo,
-  setTodos,
+  addTodoAsync,
+  fetchTodosAsync,
+  removeTodoAsync,
+  toggleTodoAsync,
 } from "../reducers/todosReducer";
 import { FormEvent, useEffect, useState } from "react";
-import todosAPI from "../todosAPI";
+import { useAppDispatch, useAppSelector } from "../store";
 
 export default function TodosList() {
-  const todos = useSelector((state: IRootState) => state.todos);
-  const dispatch = useDispatch();
+  const todos = useAppSelector((state) => state.todos);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    todosAPI.getAll().then((todos) => {
-      dispatch(setTodos(todos));
-    });
+    dispatch(fetchTodosAsync());
   }, []);
 
   return (
@@ -35,18 +31,14 @@ export default function TodosList() {
 
 function TodoItem({ todo }: { todo: Todo }) {
   const { id, completed, text } = todo;
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleRemove = () => {
-    todosAPI.deleteById(id).then(() => {
-      dispatch(removeTodo(id));
-    });
+    dispatch(removeTodoAsync(id));
   };
 
   const handleToggle = () => {
-    todosAPI.toggle(id, !completed).then(() => {
-      dispatch(toggleTodo(id));
-    });
+    dispatch(toggleTodoAsync(id, !completed));
   };
 
   return (
@@ -60,7 +52,7 @@ function TodoItem({ todo }: { todo: Todo }) {
 
 function NewTodoForm() {
   const [newTodoTask, setNewTodoTask] = useState("");
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const newTodo = {
@@ -68,10 +60,7 @@ function NewTodoForm() {
       completed: false,
     };
 
-    todosAPI.add(newTodo).then((todo) => {
-      dispatch(addTodo(todo));
-    });
-
+    dispatch(addTodoAsync(newTodo));
     setNewTodoTask("");
   };
 

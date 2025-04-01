@@ -7,5 +7,4 @@ const rootReducer = combineReducers({
   count: countReducer,
 });
 
-export type IRootState = ReturnType<typeof rootReducer>;
 export default rootReducer;

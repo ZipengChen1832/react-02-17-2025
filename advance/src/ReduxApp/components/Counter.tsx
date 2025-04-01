@@ -1,16 +1,15 @@
-import { useDispatch, useSelector } from "react-redux";
-import { IRootState } from "../reducers";
+import { useAppDispatch, useAppSelector } from "../store";
 
 export default function Counter() {
-  const count = useSelector((state: IRootState) => state.count);
+  const count = useAppSelector((state) => state.count);
   //   const { count } = useSelector((state) => state);
   console.log("Counter rerender");
   //   console.log("todos", todos);
   //   console.log("count", count);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const handleClick = () => {
-    dispatch({ type: "add" });
+    dispatch({ type: "add", meta: { delay: 1000 }  });
   };
   return (
     <div>

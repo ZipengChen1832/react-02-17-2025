@@ -1,3 +1,6 @@
+import store from "../store";
+import todosAPI from "../todosAPI";
+
 export interface Todo {
   id: number;
   text: string;
@@ -25,30 +28,67 @@ export default function todosReducer(state: Todo[] = [], action: any): Todo[] {
   }
 }
 
-export function setTodos(todos: Todo[]) {
+function setTodos(todos: Todo[]) {
   return {
     type: "SET_TODOS",
     payload: todos,
   };
 }
 
-export function addTodo(newTodo: Todo) {
+function addTodo(newTodo: Todo) {
   return {
     type: "ADD_TODO",
     payload: newTodo,
   };
 }
 
-export function removeTodo(id: number) {
+function removeTodo(id: number) {
   return {
     type: "REMOVE_TODO",
     payload: id,
   };
 }
 
-export function toggleTodo(id: number) {
+function toggleTodo(id: number) {
   return {
     type: "TOGGLE_TODO",
     payload: id,
+  };
+}
+
+type DispatchType = typeof store.dispatch;
+
+// this function is called a thunk
+export function fetchTodosAsync() {
+  return function (dispatch: DispatchType) {
+    todosAPI.getAll().then((todos) => {
+      dispatch(setTodos(todos));
+    });
+  };
+}
+
+export function addTodoAsync(newTodo: NewTodo) {
+  return function (dispatch: DispatchType) {
+    todosAPI.add(newTodo).then((todo) => {
+      dispatch(addTodo(todo));
+    });
+  };
+}
+
+export function removeTodoAsync(id: number) {
+  return function (dispatch: DispatchType) {
+    todosAPI.deleteById(id).then(() => {
+      dispatch(removeTodo(id));
+    });
+  };
+}
+
+export function toggleTodoAsync(id: number, newStatus: boolean) {
+  console.log("id", id);
+  console.log("newStatus", newStatus);
+  return function (dispatch: DispatchType) {
+    todosAPI.toggle(id, newStatus).then(() => {
+      dispatch(toggleTodo(id));
+    });
   };
 }
