@@ -4,6 +4,7 @@ import ClassComponentsDemo from "./class";
 // when importing from a folder, it will look for the index file
 // when importing a "default export", you can name it whatever you want
 import DescribingTheUI from "./DescribingTheUI";
+import HOC from "./HOC";
 import LearnUseEffect from "./LearnUseEffect";
 import ManagingState from "./ManagingState";
 import PracticeProblems from "./PracticeProblems";
@@ -18,7 +19,8 @@ function App() {
       {/* <ManagingState /> */}
       {/* <LearnUseEffect /> */}
       {/* <PracticeProblems /> */}
-      <ReduxApp />
+      {/* <ReduxApp /> */}
+      <HOC />
     </div>
   );
 }
