@@ -1,6 +1,6 @@
 import Lecture from "./Lecture";
 import { UseClickOutsideDemo } from "./useClickOutside";
-import { UseDisClosureDemo } from "./useDisClosure";
+import { UseDisClosureDemo } from "./useDisclosure";
 import { UseLocalStorageDemo } from "./useLocalStorage";
 import { useState } from "react";
 

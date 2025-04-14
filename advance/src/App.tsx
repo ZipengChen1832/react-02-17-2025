@@ -8,8 +8,10 @@ import HOC from "./HOC";
 import HookPlay from "./hooks/HookPlay";
 import LearnUseEffect from "./LearnUseEffect";
 import ManagingState from "./ManagingState";
+import PaginationDemo from "./Pagination/Pagination";
 import PracticeProblems from "./PracticeProblems";
 import ReduxApp from "./ReduxApp";
+import Routing from "./Routing";
 
 function App() {
   return (
@@ -22,7 +24,9 @@ function App() {
       {/* <PracticeProblems /> */}
       {/* <ReduxApp /> */}
       {/* <HOC /> */}
-      <HookPlay />
+      {/* <HookPlay /> */}
+      <PaginationDemo />
+      {/* <Routing /> */}
     </div>
   );
 }
