@@ -9,6 +9,7 @@ import HookPlay from "./hooks/HookPlay";
 import LearnUseEffect from "./LearnUseEffect";
 import ManagingState from "./ManagingState";
 import PaginationDemo from "./Pagination/Pagination";
+import Performance from "./Performance";
 import PracticeProblems from "./PracticeProblems";
 import ReduxApp from "./ReduxApp";
 import Routing from "./Routing";
@@ -25,8 +26,9 @@ function App() {
       {/* <ReduxApp /> */}
       {/* <HOC /> */}
       {/* <HookPlay /> */}
-      <PaginationDemo />
+      {/* <PaginationDemo /> */}
       {/* <Routing /> */}
+      <Performance />
     </div>
   );
 }
