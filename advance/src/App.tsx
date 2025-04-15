@@ -13,6 +13,7 @@ import Performance from "./Performance";
 import PracticeProblems from "./PracticeProblems";
 import ReduxApp from "./ReduxApp";
 import Routing from "./Routing";
+import UnitTesting from "./UnitTesting";
 
 function App() {
   return (
@@ -28,7 +29,8 @@ function App() {
       {/* <HookPlay /> */}
       {/* <PaginationDemo /> */}
       {/* <Routing /> */}
-      <Performance />
+      {/* <Performance /> */}
+      <UnitTesting />
     </div>
   );
 }

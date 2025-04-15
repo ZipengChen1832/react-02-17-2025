@@ -6,8 +6,10 @@ function subtract(a: number, b: number): number {
   return a - b;
 }
 
-// default export can be imported with any name
-export default sum;
+function multiply(a: number, b: number): number {
+  const product = a * b;
+  return product;
+}
 
 // named export
-export { subtract };
+export { sum, subtract, multiply };
