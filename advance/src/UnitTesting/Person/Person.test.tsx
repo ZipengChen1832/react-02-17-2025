@@ -1,7 +1,6 @@
 import { describe, expect, test } from "vitest";
 import { render, fireEvent, screen } from "@testing-library/react";
 import Person from ".";
-import "@testing-library/jest-dom";
 
 describe("Person", () => {
   test("should render a name", () => {

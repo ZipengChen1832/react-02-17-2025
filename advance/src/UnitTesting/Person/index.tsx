@@ -17,7 +17,7 @@ export default function Person({
         <b>{name}</b>
       </div>
       <p>Age: {age}</p>
-      {hideFriends && (
+      {!hideFriends && (
         <ul>
           <p>Friends:</p>
           {friends.map((friend, index) => (
