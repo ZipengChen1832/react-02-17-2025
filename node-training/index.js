@@ -2,82 +2,50 @@ const express = require("express");
 
 const app = express();
 const port = 3000;
-const shortid = require("shortid");
+
+const todosRoute = require("./routes/todos");
+const authRoute = require("./routes/auth");
+const { verifyToken } = require("./util/token");
 
 app.use(express.json());
 
-let todos = [
-  {
-    id: shortid.generate(),
-    title: "Learn Node.js",
-    description: "Understand the basics of Node.js",
-    completed: false,
-  },
-];
+app.use("/", authRoute);
+app.use("/", todosRoute);
 
-// READ
-app.get("/todos", (req, res) => {
-  res.json(todos);
+app.get("/private", (req, res) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1]; // Bearer <token>
+  if (!token) {
+    return res.status(401).json({ message: "Please log in" });
+  }
+
+  try {
+    verifyToken(token);
+    res.status(200).json({ message: "This is the private information" });
+  } catch (error) {
+    console.error("Token verification failed:", error);
+    res.status(401).json({ message: "Invalid token" });
+  }
 });
 
-app.get("/todos/:id", (req, res) => {
-  const { id } = req.params;
-  const todo = todos.find((todo) => todo.id === id);
-  if (!todo) {
-    return res.status(404).json({ message: `Todo with id ${id} not found` });
+app.get("/admin-only", (req, res) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1]; // Bearer <token>
+  if (!token) {
+    return res.status(401).json({ message: "Please log in" });
   }
 
-  res.json(todo);
-});
+  try {
+    const payload = verifyToken(token);
+    if (payload.role !== "admin") {
+      return res.status(403).json({ message: "Access denied" });
+    }
 
-// CREATE
-app.post("/todos", (req, res) => {
-  const { title, description } = req.body;
-
-  const newTodo = {
-    id: shortid.generate(),
-    title: title,
-    description: description || "",
-    completed: false,
-  };
-  todos.push(newTodo);
-  res.status(201).json(newTodo);
-});
-
-// UPDATE
-app.patch("/todos/:id", (req, res) => {
-  const { id } = req.params;
-  const { title, description, completed } = req.body;
-
-  const todoToUpdate = todos.find((todo) => todo.id === id);
-  if (!todoToUpdate) {
-    return res.status(404).json({ message: `Todo with id ${id} not found` });
+    res.status(200).json({ message: "This is the private information" });
+  } catch (error) {
+    console.error("Token verification failed:", error);
+    res.status(401).json({ message: "Invalid token" });
   }
-
-  if (title !== undefined) {
-    todoToUpdate.title = title;
-  }
-  if (description !== undefined) {
-    todoToUpdate.description = description;
-  }
-  if (completed !== undefined) {
-    todoToUpdate.completed = completed;
-  }
-
-  res.json(todoToUpdate);
-});
-
-// DELETE
-app.delete("/todos/:id", (req, res) => {
-  const { id } = req.params;
-  const todoToDelete = todos.find((todo) => todo.id === id);
-  if (!todoToDelete) {
-    res.status(404).json({ message: `Todo with id ${id} not found` });
-    return;
-  }
-
-  todos = todos.filter((todo) => todo.id !== id);
-  res.status(200).json({ message: `Todo with id ${id} deleted successfully1` });
 });
 
 app.listen(port, () => {
