@@ -13,11 +13,11 @@ let todos = [
 ];
 
 // READ
-router.get("/todos", (req, res) => {
+router.get("/", (req, res) => {
   res.json(todos);
 });
 
-router.get("/todos/:id", (req, res) => {
+router.get("/:id", (req, res) => {
   const { id } = req.params;
   const todo = todos.find((todo) => todo.id === id);
   if (!todo) {
@@ -28,7 +28,7 @@ router.get("/todos/:id", (req, res) => {
 });
 
 // CREATE
-router.post("/todos", (req, res) => {
+router.post("/", (req, res) => {
   const { title, description } = req.body;
 
   const newTodo = {
@@ -42,7 +42,7 @@ router.post("/todos", (req, res) => {
 });
 
 // UPDATE
-router.patch("/todos/:id", (req, res) => {
+router.patch("/:id", (req, res) => {
   const { id } = req.params;
   const { title, description, completed } = req.body;
 
@@ -65,7 +65,7 @@ router.patch("/todos/:id", (req, res) => {
 });
 
 // DELETE
-router.delete("/todos/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
   const { id } = req.params;
   const todoToDelete = todos.find((todo) => todo.id === id);
   if (!todoToDelete) {

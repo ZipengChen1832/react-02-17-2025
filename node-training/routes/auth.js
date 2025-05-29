@@ -2,7 +2,6 @@ const { Router } = require("express");
 const shortid = require("shortid");
 const { encryptPassword, comparePassword } = require("../util/password");
 const { signToken } = require("../util/token");
-const { userInfo } = require("os");
 
 const router = Router();
 
@@ -21,8 +20,8 @@ const users = [
   },
 ];
 
-router.post("/auth/register", (req, res) => {
-  const { username, password } = req.body;
+router.post("/register", (req, res) => {
+  const { username, password, role } = req.body;
   if (!username || !password) {
     return res
       .status(400)
@@ -37,7 +36,7 @@ router.post("/auth/register", (req, res) => {
   const newUser = {
     id: shortid.generate(),
     username,
-    role: "user", // Default role for new users
+    role: role || "user", // Default role is 'user' if not provided
     password: encryptPassword(password),
   };
 
@@ -50,8 +49,8 @@ router.post("/auth/register", (req, res) => {
   });
 });
 
-router.post("/auth/login", (req, res) => {
-  const { username, password } = req.body;
+router.post("/login", (req, res) => {
+  const { username, password } = req.body || {};
   const user = users.find((u) => u.username === username);
 
   // This approach gives out a bit too much information
@@ -63,16 +62,34 @@ router.post("/auth/login", (req, res) => {
     return res.status(401).json({ message: "Invalid password" });
   }
 
-  const { password: _, ...userInfo } = user; // Exclude password from the response
+  const { id, role } = user; // Exclude password from the response
 
-  res.status(200).json({
-    message: "Login successful",
-    token: signToken(userInfo),
-    user: {
-      id: user.id,
-      username: user.username,
-    },
-  });
+  //  two ways to store the token
+  // 1. In a http-only cookie
+  // 2. store in the local storage of the browser
+  res
+    .cookie(
+      "token",
+      signToken({
+        id,
+        role,
+      }),
+      {
+        httpOnly: true,
+      }
+    )
+    .status(200)
+    .json({
+      message: "Login successful",
+      user: {
+        id: user.id,
+        username: user.username,
+      },
+    });
+});
+
+router.post("/logout", (req, res) => {
+  res.clearCookie("token").status(200).json({ message: "Logout successful" });
 });
 
 module.exports = router;
