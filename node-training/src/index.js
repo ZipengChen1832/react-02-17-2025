@@ -5,8 +5,9 @@ const cookieParser = require("cookie-parser");
 const app = express();
 const port = 3000;
 
-const todosRoute = require("./routes/todos");
-const authRoute = require("./routes/auth");
+const todosRoute = require("./routes/todoRoute");
+const authRoute = require("./routes/authRoute");
+const userRoute = require("./routes/userRoute");
 const internalRoute = require("./routes/internal");
 const authenticate = require("./middlewares/authenticate");
 
@@ -20,12 +21,12 @@ app.use(
 
 // Public routes
 app.use("/auth", authRoute);
+app.use("/users", userRoute);
 
-app.use(authenticate);
+// app.use(authenticate);
 
 // private routes
 app.use("/todos", todosRoute);
-
 app.use("/internal", internalRoute);
 
 app.listen(port, () => {
