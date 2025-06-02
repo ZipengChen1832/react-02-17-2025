@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
-const app = express();
 const port = 3000;
 
 const todosRoute = require("./routes/todoRoute");
@@ -10,25 +9,31 @@ const authRoute = require("./routes/authRoute");
 const userRoute = require("./routes/userRoute");
 const internalRoute = require("./routes/internal");
 const authenticate = require("./middlewares/authenticate");
+const { connectDB } = require("./database/connection");
 
-app.use(cookieParser());
-app.use(express.json());
-app.use(
-  cors({
-    origin: "*",
-  })
-);
+(async () => {
+  await connectDB();
 
-// Public routes
-app.use("/auth", authRoute);
-app.use("/users", userRoute);
+  const app = express();
+  app.use(cookieParser());
+  app.use(express.json());
+  app.use(
+    cors({
+      origin: "*",
+    })
+  );
 
-// app.use(authenticate);
+  // Public routes
+  app.use("/auth", authRoute);
+  app.use("/users", userRoute);
 
-// private routes
-app.use("/todos", todosRoute);
-app.use("/internal", internalRoute);
+  // app.use(authenticate);
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+  // private routes
+  app.use("/todos", todosRoute);
+  app.use("/internal", internalRoute);
+
+  app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`);
+  });
+})();

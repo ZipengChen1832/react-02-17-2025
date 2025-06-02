@@ -1,4 +1,5 @@
 const shortid = require("shortid");
+const { connectDB } = require("../database/connection");
 
 const users = [
   {
@@ -28,6 +29,8 @@ const getUserById = async (id) => {
 };
 
 const createUser = async (user) => {
+  const connection = await connectDB();
+
   users.push(user);
 };
 
