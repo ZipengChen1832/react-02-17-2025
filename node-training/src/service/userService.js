@@ -1,11 +1,11 @@
 const { encryptPassword } = require("../util/password");
-const users = require("../repository/userRepo");
 const shortid = require("shortid");
+const userRepo = require("../repository/userRepo");
 
 const createUser = async (user) => {
   const { username, password, role } = user || {};
-  const userExists = users.some((_user) => _user.username === username);
-  if (userExists) {
+  const _user = await userRepo.getUserByUsername(username);
+  if (_user) {
     // return res.status(409).json({ message: "Username already exists" });
     throw new Error("Username already exists");
   }
@@ -17,7 +17,7 @@ const createUser = async (user) => {
     password: encryptPassword(password),
   };
 
-  users.push(newUser);
+  await userRepo.createUser(newUser);
 
   const { password: _, ...userInfo } = newUser; // Exclude password from the response
   return userInfo;

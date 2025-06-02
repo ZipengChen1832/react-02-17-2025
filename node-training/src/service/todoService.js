@@ -1,12 +1,12 @@
 const shortid = require("shortid");
-const todos = require("../repository/todoRepo");
+const todoRepo = require("../repository/todoRepo");
 
 const getAllTodos = async () => {
-  return todos;
+  return todoRepo.getTodos();
 };
 
 const getTodoById = async (id) => {
-  return todos.find((todo) => todo.id === id);
+  return todoRepo.getTodoById(id);
 };
 
 const createTodo = async (title, description) => {
@@ -17,30 +17,25 @@ const createTodo = async (title, description) => {
     completed: false,
   };
 
-  todos.push(newTodo);
+  await todoRepo.createTodo(newTodo);
   return newTodo;
 };
 
 const updateTodo = async (id, updates) => {
-  const todoToUpdate = todos.find((todo) => todo.id === id);
-  if (!todoToUpdate) return null;
-
-  Object.assign(todoToUpdate, updates);
+  const todoToUpdate = await todoRepo.getTodoById(id, updates);
   return todoToUpdate;
 };
 
 const deleteTodo = async (id) => {
-  const index = todos.findIndex((todo) => todo.id === id);
-  if (index === -1) return null;
-
-  const deletedTodo = todos.splice(index, 1);
-  return deletedTodo[0];
+  await todoRepo.deleteTodo(id);
 };
 
-module.exports = {
+const todoService = {
   getAllTodos,
   getTodoById,
   createTodo,
   updateTodo,
   deleteTodo,
 };
+
+module.exports = todoService;

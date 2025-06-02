@@ -1,8 +1,9 @@
 const { comparePassword } = require("../util/password");
 const { signToken } = require("../util/token");
+const userRepo = require("../repository/userRepo");
 
 const login = async (username, password) => {
-  const user = users.find((u) => u.username === username);
+  const user = await userRepo.getUserByUsername(username);
   if (!user) {
     throw new Error("User not found");
   }
