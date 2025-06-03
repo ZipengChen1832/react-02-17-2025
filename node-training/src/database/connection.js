@@ -14,7 +14,7 @@ async function connectDB() {
     port: process.env.DB_PORT,
   });
   console.log("connected to the database");
-//   console.log("connection", connection);
+  //   console.log("connection", connection);
 }
 
 module.exports = { connectDB };
