@@ -23,7 +23,7 @@ const deleteTodo = async (id) => {
     const deletedTodos=await todoRepo.deleteTodo(id);
   return deletedTodos
 };
-// trash
+
 const todoService = {
     getAllTodos,
     getTodoById,
