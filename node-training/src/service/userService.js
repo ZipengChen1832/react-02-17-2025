@@ -23,6 +23,7 @@ const createUser = async (user) => {
   return userInfo;
 };
 
-module.exports = {
-  createUser,
-};
+const userService = {
+    createUser
+  };
+module.exports = userService
