@@ -1,7 +1,8 @@
 const todoService = require("../service/todoService");
 
 const getTodos = async (req, res) => {
-  const todos = await todoService.getAllTodos();
+  const { id: userId } = req.user;
+  const todos = await todoService.getTodosByUser(userId);
   res.json(todos);
 };
 
@@ -14,12 +15,17 @@ const getTodoById = async (req, res) => {
 
 const createTodo = async (req, res) => {
   const { title, description } = req.body;
+  const { id: userId } = req.user;
 
   if (!title) {
     return res.status(400).json({ message: "Title is required" });
   }
 
-  const newTodo = await todoService.createTodo(title, description);
+  const newTodo = await todoService.createTodo({
+    title,
+    description,
+    userId,
+  });
   res.status(201).json(newTodo);
 };
 

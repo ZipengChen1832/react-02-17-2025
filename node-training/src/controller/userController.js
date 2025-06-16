@@ -1,6 +1,6 @@
 const { createUser } = require("../service/userService");
 
-const register = async (req, res) => {
+const register = async (req, res) => {  
   const { username, password, role } = req.body;
   if (!username || !password) {
     return res

@@ -6,7 +6,6 @@ const createUser = async (user) => {
   const { username, password, role } = user || {};
   const _user = await userRepo.getUserByUsername(username);
   if (_user) {
-    // return res.status(409).json({ message: "Username already exists" });
     throw new Error("Username already exists");
   }
 
@@ -24,6 +23,7 @@ const createUser = async (user) => {
 };
 
 const userService = {
-    createUser
-  };
-module.exports = userService
+  createUser,
+};
+
+module.exports = userService;

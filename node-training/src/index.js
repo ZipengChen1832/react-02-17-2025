@@ -27,7 +27,7 @@ const { connectDB } = require("./database/connection");
   app.use("/auth", authRoute);
   app.use("/users", userRoute);
 
-  // app.use(authenticate);
+  app.use(authenticate);
 
   // private routes
   app.use("/todos", todosRoute);
