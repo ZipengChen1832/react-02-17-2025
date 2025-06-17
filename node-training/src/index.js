@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
-const port = 3000;
+const port = 3001;
 
 const todosRoute = require("./routes/todoRoute");
 const authRoute = require("./routes/authRoute");
@@ -10,9 +10,11 @@ const userRoute = require("./routes/userRoute");
 const internalRoute = require("./routes/internal");
 const authenticate = require("./middlewares/authenticate");
 const { connectDB } = require("./database/connection");
+const populateDB = require("./database/initiation");
 
 (async () => {
   await connectDB();
+  await populateDB();
 
   const app = express();
   app.use(cookieParser());
